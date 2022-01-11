@@ -5,6 +5,11 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 
 
+/**
+ * User service test
+ *
+ * @constructor Create empty User service test
+ */
 @SpringJUnitConfig(classes = [DaoFactory::class])
 internal class UserServiceTest {
     @Autowired
@@ -19,6 +24,10 @@ internal class UserServiceTest {
         User("green", "오민규", "p5", Level.GOLD, 100, 100),
     )
 
+    /**
+     * Upgrade levels
+     *
+     */
     @Test
    fun upgradeLevels() {
         userDao.deleteAll()
@@ -32,6 +41,14 @@ internal class UserServiceTest {
         assertEquals(userDao.get("erwins")?.level, Level.SILVER)
         assertEquals(userDao.get("madnite1")?.level, Level.GOLD)
         assertEquals(userDao.get("green")?.level, Level.GOLD)
+
+    }
+
+    fun add() {
+        val userWithLevel = users[4]
+        var userWithoutLevel = users[0]
+
+        //userWithoutLevel.level =
 
     }
 }
