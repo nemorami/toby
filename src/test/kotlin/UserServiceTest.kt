@@ -35,6 +35,9 @@ internal class UserServiceTest {
             userDao.add(it)
         }
         userService.upgradeLevels()
+        userDao.getAll()?.forEach {
+
+        }
 
         assertEquals(userDao.get("bumjin")?.level, Level.BASIC)
         assertEquals(userDao.get("joytouch")?.level, Level.SILVER)

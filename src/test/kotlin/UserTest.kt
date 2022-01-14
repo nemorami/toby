@@ -11,9 +11,12 @@ internal class UserTest {
         levels.forEach {
             user.level = it
             println(it)
-            println(user)
-            if(user.level != Level.GOLD)
-                assertEquals(user.upgradeLevel().level, it.next())
+            kotlin.runCatching {
+                println(user.level.next())
+            }.onFailure {
+                println("gold는 다음 level이 없습니다.")
+            }
+
 
         }
 

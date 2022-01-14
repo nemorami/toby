@@ -19,12 +19,7 @@ data class User(var id: String, var name: String, var password: String,
      * 이미 최고 level일 경우 IllegalStateException에러를 던진다.
      */
     fun upgradeLevel() : User{
-        println(level)
-        if(level == Level.GOLD)
-            throw IllegalStateException("${level}은 업그레이드가 불가능합니다.")
-        else
-            level.inc()
-        println("after inc: $level")
+        level = level.next()
         return this
     }
 
@@ -49,14 +44,13 @@ enum class Level(var level: Int) {
             throw IllegalStateException("${l.toLevel()} doesn't have next level.")
         return l.toLevel()
     }
-    /**
-     * Inc
-     *
-     */
-    fun inc() {
-        level = level + 1
-        if (level > 3) level = 3
-    }
+//    /**
+//     * Inc
+//     *
+//     */
+//    fun inc() {
+//        level = next().ordinal
+//    }
 
 }
 

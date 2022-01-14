@@ -18,7 +18,7 @@ interface UserDao {
      * @return id에 해당하는 user
      */
     fun get(id: String): User?
-    fun getAll(): List<User>?
+    fun getAll(): List<User>
     fun deleteAll()
     fun getCount(): Int?
     fun update(user: User)
@@ -115,7 +115,7 @@ class UserDaoJdbc(val dataSource: DataSource) : UserDao {
         }
     }
 
-    override fun getAll(): List<User>? {
+    override fun getAll(): List<User> {
         return jdbcTemplate.query("select * from users", mapper)
     }
 

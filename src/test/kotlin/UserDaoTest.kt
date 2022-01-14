@@ -95,13 +95,13 @@ class UserDaoTest {
         dao.deleteAll()
 
         dao.add(users[0])
-
+        assertEquals(dao.get(users[0].id), users[0])
         val user1 =  User(users[0].id, "오민규", "springno6", Level.GOLD, 1000, 999)
 
-        dao.update(user1)
-        dao.get(user1.id)?.let {
-            checkSameUser(user1, it)
-        } ?: fail("")
+//        dao.update(user1)
+//        dao.get(user1.id)?.let {
+//            checkSameUser(user1, it)
+//        } ?: fail("")
 
 
 
