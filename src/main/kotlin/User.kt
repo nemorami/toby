@@ -8,9 +8,12 @@
  * @property login
  * @property recommend
  * @constructor Create empty User
+ ** history
+ * 20220118 email 추가  alter table users add email email;
+
  */
 data class User(var id: String, var name: String, var password: String,
-                var level: Level, var login: Int, var recommend: Int) {
+                var level: Level, var login: Int, var recommend: Int, var email: String) {
 
     /**
      * Upgrade level

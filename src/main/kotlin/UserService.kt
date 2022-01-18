@@ -1,6 +1,11 @@
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.jdbc.datasource.DataSourceTransactionManager
 import org.springframework.jdbc.datasource.DataSourceUtils
+import org.springframework.transaction.PlatformTransactionManager
+import org.springframework.transaction.TransactionManager
+import org.springframework.transaction.support.DefaultTransactionDefinition
 import org.springframework.transaction.support.TransactionSynchronizationManager
+import java.util.*
 import javax.sql.DataSource
 
 /**
@@ -11,31 +16,47 @@ import javax.sql.DataSource
  */
 class UserService (val userDao: UserDao){
 
+    //@Autowired
+    //lateinit var dataSource: DataSource
     @Autowired
-    lateinit var dataSource: DataSource
+    lateinit var transactionManager: PlatformTransactionManager;
     /**
      * Upgrade levels
      *
      */
     fun upgradeLevels(): Unit {
-        TransactionSynchronizationManager.initSynchronization();
-        val c = DataSourceUtils.getConnection(dataSource)
-        c.autoCommit = false
+//        TransactionSynchronizationManager.initSynchronization();
+//        val c = DataSourceUtils.getConnection(dataSource)
+//        c.autoCommit = false
+//        kotlin.runCatching {
+//            userDao.getAll().forEach {
+//                if(canUpgradeLevel(it))
+//                    upgradeLevel(it)
+//            }
+//            c.commit()
+//        }.onSuccess {
+//
+//        }.onFailure {
+//            c.rollback()
+//            throw it
+//        }.also {
+//            DataSourceUtils.releaseConnection(c, dataSource)
+//            TransactionSynchronizationManager.unbindResource(dataSource)
+//            TransactionSynchronizationManager.clearSynchronization()
+//        }
+        //val transactionManager = DataSourceTransactionManager(dataSource)
+        val status = transactionManager.getTransaction(DefaultTransactionDefinition())
         kotlin.runCatching {
             userDao.getAll().forEach {
                 if(canUpgradeLevel(it))
                     upgradeLevel(it)
             }
-            c.commit()
+            transactionManager.commit(status)
         }.onSuccess {
 
         }.onFailure {
-            c.rollback()
+            transactionManager.rollback(status)
             throw it
-        }.also {
-            DataSourceUtils.releaseConnection(c, dataSource)
-            TransactionSynchronizationManager.unbindResource(dataSource)
-            TransactionSynchronizationManager.clearSynchronization()
         }
 
     }
@@ -51,5 +72,11 @@ class UserService (val userDao: UserDao){
     fun upgradeLevel(user: User) {
        user.upgradeLevel()
        userDao.update(user)
+       sendUpgradeEmail(user)
+    }
+
+    private fun sendUpgradeEmail(user: User){
+        val props = Properties()
+        props.put("", "")
     }
 }

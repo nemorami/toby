@@ -36,7 +36,8 @@ class UserDaoJdbc(val dataSource: DataSource) : UserDao {
             rs.getString("password"),
             rs.getInt("level").toLevel(),
             rs.getInt("login"),
-            rs.getInt("recommend")
+            rs.getInt("recommend"),
+            rs.getString("email")
         )
     }
     /**
@@ -86,13 +87,14 @@ class UserDaoJdbc(val dataSource: DataSource) : UserDao {
 //            }
 //        }
         jdbcTemplate.update(
-            "insert into users(id, name, password, level, login, recommend) values(?, ?, ?, ?, ?, ?)",
+            "insert into users(id, name, password, level, login, recommend, email) values(?, ?, ?, ?, ?, ?, ?)",
             user.id,
             user.name,
             user.password,
             user.level.level,
             user.login,
-            user.recommend
+            user.recommend,
+            user.email
         )
 
     }
@@ -111,7 +113,9 @@ class UserDaoJdbc(val dataSource: DataSource) : UserDao {
             }
         }?.run{
             next()
-            User(getString("id"), getString("name"), getString("password"), getInt("level").toLevel() ?: Level.BASIC, getInt("login"), getInt("recommend"))
+            User(getString("id"), getString("name"), getString("password"),
+                getInt("level").toLevel() ?: Level.BASIC, getInt("login"),
+                getInt("recommend"), getString("email"))
         }
     }
 
@@ -133,7 +137,7 @@ class UserDaoJdbc(val dataSource: DataSource) : UserDao {
     }
 
     override fun update(user: User) {
-        jdbcTemplate.update("update users set name = ?, password = ?, level = ?, login = ?, recommend = ? where id = ?",
-        user.name, user.password, user.level.level, user.login, user.recommend, user.id)
+        jdbcTemplate.update("update users set name = ?, password = ?, level = ?, login = ?, recommend = ?, email = ? where id = ?",
+        user.name, user.password, user.level.level, user.login, user.recommend, user.email, user.id)
     }
 }
