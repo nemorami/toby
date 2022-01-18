@@ -78,5 +78,6 @@ class UserService (val userDao: UserDao){
     private fun sendUpgradeEmail(user: User){
         val props = Properties()
         props.put("", "")
+        val s = Session.getInstance(props, null)
     }
 }
