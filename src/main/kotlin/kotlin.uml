@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/home/nemorami/devel/IdeaProjects/toby/src/main/kotlin</OriginalElement>
+  <nodes>
+    <node x="843.2083333333333" y="638.0">UserDaoJdbc</node>
+    <node x="535.0818713450293" y="172.0">User</node>
+    <node x="336.0" y="1226.0">UserKt</node>
+    <node x="475.26561295234967" y="454.5">UserDao</node>
+    <node x="346.2083333333333" y="715.0">UserService</node>
+    <node x="64.0" y="748.5">DconnectionMaker</node>
+    <node x="0.0" y="1226.0">Calculator</node>
+    <node x="672.8318713450293" y="0.0">Level</node>
+    <node x="0.0" y="466.5">ConnectionMaker</node>
+    <node x="606.2083333333333" y="737.5">GraphDao</node>
+    <node x="247.2068713450293" y="996.0">DaoFactory</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="UserDaoJdbc" target="UserDao" relationship="REALIZATION">
+      <point x="-131.0" y="-148.0" />
+      <point x="908.7083333333333" y="617.5" />
+      <point x="52.33333333333334" y="81.5" />
+    </edge>
+    <edge source="DaoFactory" target="UserService" relationship="CREATE">
+      <point x="69.25" y="-92.5" />
+      <point x="454.9568713450293" y="975.0" />
+      <point x="590.4583333333333" y="975.0" />
+      <point x="590.4583333333333" y="955.0" />
+      <point x="466.2083333333333" y="955.0" />
+      <point x="0.0" y="71.0" />
+    </edge>
+    <edge source="User" target="Level" relationship="DEPENDENCY">
+      <point x="-74.5" y="-92.5" />
+      <point x="609.5818713450293" y="151.0" />
+      <point x="631.5745614035088" y="151.0" />
+      <point x="631.5745614035088" y="141.0" />
+      <point x="702.3318713450293" y="141.0" />
+      <point x="-29.5" y="60.0" />
+    </edge>
+    <edge source="UserDaoJdbc" target="Level" relationship="DEPENDENCY">
+      <point x="131.0" y="-148.0" />
+      <point x="1170.7083333333333" y="616.0" />
+      <point x="1070.4502923976609" y="616.0" />
+      <point x="1070.4502923976609" y="151.0" />
+      <point x="631.5745614035088" y="151.0" />
+      <point x="631.5745614035088" y="141.0" />
+      <point x="702.3318713450293" y="141.0" />
+      <point x="-29.5" y="60.0" />
+    </edge>
+    <edge source="UserService" target="UserDao" relationship="DEPENDENCY">
+      <point x="-60.0" y="-71.0" />
+      <point x="406.2083333333333" y="616.0" />
+      <point x="284.3318713450293" y="616.0" />
+      <point x="284.3318713450293" y="606.0" />
+      <point x="335.7083333333333" y="606.0" />
+      <point x="335.7083333333333" y="596.0" />
+      <point x="501.4322796190163" y="596.0" />
+      <point x="-52.33333333333334" y="81.5" />
+    </edge>
+    <edge source="UserDaoJdbc" target="User" relationship="CREATE">
+      <point x="0.0" y="-148.0" />
+      <point x="1039.7083333333333" y="616.0" />
+      <point x="1003.0745614035088" y="616.0" />
+      <point x="1003.0745614035088" y="389.0" />
+      <point x="758.5818713450293" y="389.0" />
+      <point x="74.5" y="92.5" />
+    </edge>
+    <edge source="DaoFactory" target="UserDao" relationship="DEPENDENCY">
+      <point x="-69.25" y="-92.5" />
+      <point x="316.4568713450293" y="975.0" />
+      <point x="195.19956140350882" y="975.0" />
+      <point x="195.19956140350882" y="965.0" />
+      <point x="335.7083333333333" y="965.0" />
+      <point x="335.7083333333333" y="596.0" />
+      <point x="501.4322796190163" y="596.0" />
+      <point x="-52.33333333333334" y="81.5" />
+    </edge>
+    <edge source="UserDao" target="User" relationship="DEPENDENCY">
+      <point x="0.0" y="-81.5" />
+      <point x="553.7656129523497" y="389.0" />
+      <point x="426.3245614035088" y="389.0" />
+      <point x="426.3245614035088" y="379.0" />
+      <point x="609.5818713450293" y="379.0" />
+      <point x="-74.5" y="92.5" />
+    </edge>
+    <edge source="UserService" target="UserDao" relationship="TO_ONE">
+      <point x="60.0" y="-71.0" />
+      <point x="526.2083333333333" y="617.5" />
+      <point x="0.0" y="81.5" />
+    </edge>
+    <edge source="DconnectionMaker" target="ConnectionMaker" relationship="REALIZATION">
+      <point x="0.0" y="-37.5" />
+      <point x="181.5" y="616.0" />
+      <point x="176.25" y="616.0" />
+      <point x="58.75" y="26.0" />
+    </edge>
+    <edge source="UserService" target="User" relationship="DEPENDENCY">
+      <point x="-60.0" y="-71.0" />
+      <point x="406.2083333333333" y="616.0" />
+      <point x="284.3318713450293" y="616.0" />
+      <point x="284.3318713450293" y="596.0" />
+      <point x="312.125" y="596.0" />
+      <point x="312.125" y="389.0" />
+      <point x="426.3245614035088" y="389.0" />
+      <point x="426.3245614035088" y="379.0" />
+      <point x="609.5818713450293" y="379.0" />
+      <point x="-74.5" y="92.5" />
+    </edge>
+    <edge source="DaoFactory" target="DconnectionMaker" relationship="CREATE">
+      <point x="69.25" y="-92.5" />
+      <point x="454.9568713450293" y="975.0" />
+      <point x="590.4583333333333" y="975.0" />
+      <point x="590.4583333333333" y="955.0" />
+      <point x="181.5" y="955.0" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="DaoFactory" target="GraphDao" relationship="CREATE">
+      <point x="69.25" y="-92.5" />
+      <point x="454.9568713450293" y="975.0" />
+      <point x="590.4583333333333" y="975.0" />
+      <point x="590.4583333333333" y="955.0" />
+      <point x="714.7083333333333" y="955.0" />
+      <point x="0.0" y="48.5" />
+    </edge>
+    <edge source="User" target="Level" relationship="TO_ONE">
+      <point x="74.5" y="-92.5" />
+      <point x="758.5818713450293" y="141.0" />
+      <point x="761.3318713450293" y="141.0" />
+      <point x="29.5" y="60.0" />
+    </edge>
+    <edge source="DaoFactory" target="ConnectionMaker" relationship="DEPENDENCY">
+      <point x="-69.25" y="-92.5" />
+      <point x="316.4568713450293" y="975.0" />
+      <point x="195.19956140350882" y="975.0" />
+      <point x="195.19956140350882" y="965.0" />
+      <point x="53.5" y="965.0" />
+      <point x="53.5" y="616.0" />
+      <point x="58.75" y="616.0" />
+      <point x="-58.75" y="26.0" />
+    </edge>
+    <edge source="DaoFactory" target="UserDaoJdbc" relationship="CREATE">
+      <point x="69.25" y="-92.5" />
+      <point x="454.9568713450293" y="975.0" />
+      <point x="590.4583333333333" y="975.0" />
+      <point x="590.4583333333333" y="955.0" />
+      <point x="1039.7083333333333" y="955.0" />
+      <point x="0.0" y="148.0" />
+    </edge>
+    <edge source="UserService" target="Level" relationship="DEPENDENCY">
+      <point x="-60.0" y="-71.0" />
+      <point x="406.2083333333333" y="616.0" />
+      <point x="284.3318713450293" y="616.0" />
+      <point x="284.3318713450293" y="596.0" />
+      <point x="269.625" y="596.0" />
+      <point x="269.625" y="151.0" />
+      <point x="631.5745614035088" y="151.0" />
+      <point x="631.5745614035088" y="141.0" />
+      <point x="702.3318713450293" y="141.0" />
+      <point x="-29.5" y="60.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.7460163812360388" showDependencies="true" x="618.4999999999999" y="661.5" />
+  <SelectedNodes>
+    <node>UserDao</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
