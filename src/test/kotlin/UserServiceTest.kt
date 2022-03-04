@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 
 
@@ -13,7 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 @SpringJUnitConfig(classes = [DaoFactory::class])
 internal class UserServiceTest {
     @Autowired
-    lateinit var userService: UserService
+    lateinit var userService: UserServiceImpl
     @Autowired
     lateinit var userDao: UserDao
     var users = listOf<User>(

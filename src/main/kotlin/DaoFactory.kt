@@ -3,7 +3,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.jdbc.datasource.DataSourceTransactionManager
 import org.springframework.jdbc.datasource.SimpleDriverDataSource
 import org.springframework.transaction.PlatformTransactionManager
-import org.springframework.transaction.TransactionManager
 import javax.sql.DataSource
 
 @Configuration
@@ -54,8 +53,8 @@ open class DaoFactory {
     }
 
     @Bean
-    open fun userService(): UserService {
-        return UserService(userDao())
+    open fun userService(): UserServiceImpl {
+        return UserServiceImpl(userDao())
     }
 
     @Bean
