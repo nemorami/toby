@@ -9,15 +9,17 @@ import org.springframework.transaction.support.DefaultTransactionDefinition
  * @property userDao
  * @constructor Create empty User service
  */
-class UserServiceImpl (val userDao: UserDao) : UserService{
+class UserServiceImpl  : UserService{
 
     //@Autowired
     //lateinit var dataSource: DataSource
     @Autowired
     lateinit var transactionManager: PlatformTransactionManager
+    @Autowired
+    lateinit var userDao: UserDao
 
     override fun add(user: User) {
-        TODO("Not yet implemented")
+        userDao.add(user)
     }
 
     /**
@@ -25,38 +27,9 @@ class UserServiceImpl (val userDao: UserDao) : UserService{
      *
      */
     override fun upgradeLevels(): Unit {
-//        TransactionSynchronizationManager.initSynchronization();
-//        val c = DataSourceUtils.getConnection(dataSource)
-//        c.autoCommit = false
-//        kotlin.runCatching {
-//            userDao.getAll().forEach {
-//                if(canUpgradeLevel(it))
-//                    upgradeLevel(it)
-//            }
-//            c.commit()
-//        }.onSuccess {
-//
-//        }.onFailure {
-//            c.rollback()
-//            throw it
-//        }.also {
-//            DataSourceUtils.releaseConnection(c, dataSource)
-//            TransactionSynchronizationManager.unbindResource(dataSource)
-//            TransactionSynchronizationManager.clearSynchronization()
-//        }
-        //val transactionManager = DataSourceTransactionManager(dataSource)
-        val status = transactionManager.getTransaction(DefaultTransactionDefinition())
-        kotlin.runCatching {
-            userDao.getAll().forEach {
-                if(canUpgradeLevel(it))
-                    upgradeLevel(it)
-            }
-            transactionManager.commit(status)
-        }.onSuccess {
-
-        }.onFailure {
-            transactionManager.rollback(status)
-            throw it
+        userDao.getAll().forEach {
+            if (canUpgradeLevel(it))
+                upgradeLevel(it)
         }
 
     }

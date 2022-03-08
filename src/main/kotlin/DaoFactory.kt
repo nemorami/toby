@@ -54,7 +54,7 @@ open class DaoFactory {
 
     @Bean
     open fun userService(): UserServiceImpl {
-        return UserServiceImpl(userDao())
+        return UserServiceImpl()
     }
 
     @Bean

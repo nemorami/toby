@@ -40,37 +40,9 @@ class UserDaoJdbc(val dataSource: DataSource) : UserDao {
             rs.getString("email")
         )
     }
-    /**
-     * [query]를 실행한다.
-     *
-     * @param query 실행할 쿼리
-     * @return 쿼리 실행 결과를 반환합니다.     */
-    private fun runQuery(query: String) : ResultSet? {
-        runCatching {
-            (dataSource.connection.prepareStatement(query)).use {
-                if (it.execute())
-                    return it.executeQuery()
-            }
-        }.onFailure {
-            //예외처리
-        }
-        return null
-    }
 
-    /**
-     * Run query
-     *
-     * @param stmt PreparedStatement
-     * @receiver
-     * @return ᅟResultSet
-     */
-    private fun runQuery(stmt: (Connection)->PreparedStatement): ResultSet? {
-        stmt(dataSource.connection).use {
-            if (it.execute())
-                return it.executeQuery()
-        }
-        return null
-    }
+
+
     /**
      * Add
      *
@@ -106,17 +78,8 @@ class UserDaoJdbc(val dataSource: DataSource) : UserDao {
      * @return id에 해당하는 user
      */
     override fun get(id: String): User? {
-        return runQuery{
-            with(it.prepareStatement("select * from users where id = ?")) {
-                setString(1, id)
-                this
-            }
-        }?.run{
-            next()
-            User(getString("id"), getString("name"), getString("password"),
-                getInt("level").toLevel() ?: Level.BASIC, getInt("login"),
-                getInt("recommend"), getString("email"))
-        }
+        //check: $id에 ?를 썻을때는?
+        return jdbcTemplate.query("select * from users where id = '$id'",mapper)[0]
     }
 
     override fun getAll(): List<User> {
@@ -124,20 +87,60 @@ class UserDaoJdbc(val dataSource: DataSource) : UserDao {
     }
 
     override fun deleteAll(){
-        runQuery {
-            it.prepareStatement("delete from users")
-        }
+
+            jdbcTemplate.update("delete from users")
+
     }
 
     override fun getCount(): Int?{
-         return runQuery{it.prepareStatement("select count(*) from users")}?.run {
-            next()
-            getInt(1)
-        }
+         return jdbcTemplate.queryForObject("select count(*) from users", Int::class.java)
     }
 
     override fun update(user: User) {
         jdbcTemplate.update("update users set name = ?, password = ?, level = ?, login = ?, recommend = ?, email = ? where id = ?",
         user.name, user.password, user.level.level, user.login, user.recommend, user.email, user.id)
     }
+}
+
+class MockUserDao(val users: List<User>) : UserDao {
+    //check: updated가 null을 가질수 없게 선언하면...
+    var updated: MutableList<User?> = mutableListOf()
+
+
+    /**
+     * Get
+     *
+     * @param id id로 User를 조회
+     * @return id에 해당하는 user
+     */
+    override fun get(id: String): User? {
+        TODO("Not yet implemented")
+    }
+
+    /**
+     * Add
+     *
+     * @param user
+     */
+    override fun add(user: User) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAll(): List<User> {
+        return users
+    }
+
+    override fun deleteAll() {
+        TODO("Not yet implemented")
+    }
+
+    override fun getCount(): Int? {
+        TODO("Not yet implemented")
+    }
+
+    override fun update(user: User) {
+            updated.add(user)
+
+    }
+
 }

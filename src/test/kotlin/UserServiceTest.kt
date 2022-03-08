@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.mockito.kotlin.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 
@@ -12,9 +13,10 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 @SpringJUnitConfig(classes = [DaoFactory::class])
 internal class UserServiceTest {
     @Autowired
-    lateinit var userService: UserServiceImpl
+    lateinit var userService: UserService
     @Autowired
     lateinit var userDao: UserDao
+
     var users = listOf<User>(
         User("bumjin", "박범진", "p1", Level.BASIC, 49, 0),
         User("joytouch", "강명성", "p2", Level.BASIC, 50, 0),
@@ -29,29 +31,48 @@ internal class UserServiceTest {
      */
     @Test
    fun upgradeLevels() {
-        userDao.deleteAll()
-        users.forEach {
-            userDao.add(it)
+//        userDao.deleteAll()
+//        users.forEach {
+//            userService.add(it)
+//        }
+//        userService.upgradeLevels()
+//        assertEquals(userDao.get("bumjin")?.level, Level.BASIC)
+//        assertEquals(userDao.get("joytouch")?.level, Level.SILVER)
+//        assertEquals(userDao.get("erwins")?.level, Level.SILVER)
+//        assertEquals(userDao.get("madnite1")?.level, Level.GOLD)
+//        assertEquals(userDao.get("green")?.level, Level.GOLD)
+        var userServiceImpl = UserServiceImpl()
+        var mockUserDao = MockUserDao(users)
+        userServiceImpl.userDao = mockUserDao
+
+        userServiceImpl.upgradeLevels()
+
+        with(mockUserDao.updated){
+            assertEquals(this.size, 2)
+            assertEquals(this[0]?.level, Level.SILVER )
+            assertEquals(this[1]?.level, Level.GOLD )
         }
-        userService.upgradeLevels()
-        userDao.getAll()?.forEach {
-
-        }
-
-        assertEquals(userDao.get("bumjin")?.level, Level.BASIC)
-        assertEquals(userDao.get("joytouch")?.level, Level.SILVER)
-        assertEquals(userDao.get("erwins")?.level, Level.SILVER)
-        assertEquals(userDao.get("madnite1")?.level, Level.GOLD)
-        assertEquals(userDao.get("green")?.level, Level.GOLD)
-
     }
 
+    @Test
     fun add() {
-        val userWithLevel = users[4]
-        var userWithoutLevel = users[0]
+       userDao.deleteAll()
+       users.forEach {
+           userService.add(it)
+       }
+    }
 
-        //userWithoutLevel.level =
+    @Test
+    fun mockUpgradeLevels() {
+        val userServiceImpl = UserServiceImpl()
+        val mockUserDao = mock<UserDao>{
+            on {getAll()} doReturn users
+        }
 
+        userServiceImpl.userDao = mockUserDao
+
+        userServiceImpl.upgradeLevels()
+        verify(mockUserDao, times(2)).update(any<User>())
     }
 }
 

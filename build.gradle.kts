@@ -27,6 +27,7 @@ dependencies {
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.springframework:spring-test:+")
     testImplementation("org.junit.jupiter:junit-jupiter-api:+")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:+")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:+")
 }
 

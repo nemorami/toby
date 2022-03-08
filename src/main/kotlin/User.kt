@@ -13,7 +13,7 @@
 
  */
 data class User(var id: String, var name: String, var password: String,
-                var level: Level, var login: Int, var recommend: Int, var email: String) {
+                var level: Level, var login: Int, var recommend: Int, var email: String? = null) {
 
     /**
      * Upgrade level
@@ -40,7 +40,7 @@ enum class Level(var level: Int) {
     SILVER(2),
     GOLD(3);
 
-//    //todo getter로 변경
+    //todo getter로 변경
     fun next(): Level{
         var l = level + 1
         if( l < 0 || l > 3)
